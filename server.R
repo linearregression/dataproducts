@@ -42,33 +42,35 @@ cleanse_tokenize <-function(sentence) {
   # split into words. str_split is in the stringr package
   word.list = str_split(sentence, '\\s+') 
   # sometimes a list() is one level of hierarchy too much
-  words = unlist(word.list)
-  return(words)
+  words <- unlist(word.list)
+  return(as.character(words))
 }
 
 calculateSentiment <- function (sampleText, posWords, negWords, 
                                 posWordsDb, negWordsDb ) 
 {
   word.list <- cleanse_tokenize(sampleText)
-  print(word.list)
-  print(length(word.list))
-
+ 
   if(length(word.list) > 1) {
      posWords <- cleanse_tokenize(posWords)
      negWords <- cleanse_tokenize(negWords) 
-     print('wewewa')
-     print(posWords)
-     print(negWords)
-     pos.words <- unique(c(posWords, posWordsDb))
-     neg.words <- unique(c(negWords, negWordsDb))
+     pos.words <- ifelse(length(posWords), unique(c(posWords, posWordsDb)), posWordsDb) 
+     neg.words <- ifelse(length(negWords), unique(c(negWords, negWordsDb)), negWordsDb)
 
      # compare word vectors from sentence against positve and negative word vectos
+
      pos.matches <- match(word.list, pos.words)
      neg.matches <- match(word.list, neg.words)
+print(pos.matches)
+print(neg.matches)
      # create word vector that denoted matches to postive and negative word vectors
-     pos.matches <-is.na(pos.matches)
-     neg.matches <- !is.na(neg.matches)
-     score <- sum(pos.matches) - sum(neg.matches)
+     pos_matches <- is.na(pos.matches)
+     neg_matches <- !is.na(neg.matches)
+print('***')
+print(pos.matches)
+print(neg.matches)
+print('***')
+     score <- sum(pos_matches) - sum(neg_matches)
      return(round(score, digits = 3))
   }
   return(0)
