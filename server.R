@@ -62,7 +62,7 @@ calculateSentiment <- function (sampleText, posWords, negWords,
 print(pos.matches)
 print(neg.matches)
      # create word vector that denoted matches to postive and negative word vectors
-     pos_matches <- is.na(pos.matches)
+     pos_matches <- !is.na(pos.matches)
      neg_matches <- !is.na(neg.matches)
 print('***')
 print(pos_matches)
