@@ -11,7 +11,8 @@ require(tm.plugin.sentiment) || install.packages("tm.plugin.sentiment", repos="h
 
 shinyServer(
   function(input, output){
-    
+    uci.dataset.pos = scan('data/positive-words.txt', what='character', comment.char=';')
+    uci.dataset.neg = scan('data/negative-words.txt', what='character', comment.char=';')
     output$sentiment <- renderText(
              { calculateSentiment(input$sampleText,
                                   input$posWords,
@@ -49,22 +50,38 @@ cleanse_tokenize <-function(sentence) {
 
 calculateSentiment <- function (sampleText, posWords, negWords) 
 {
-  require(plyr)
-  require(stringr)
-  result <- weeklyRent * 52 / propertyPrice * 100
-  return(round(result, digits = 2))
+  word.list <- cleanse_tokenize(sampleText)
+  posWords <- cleanse_tokenize(posWords)
+  negWords <- cleanse_tokenize(negWords)
+  
+  pos.words <- c(posWords, uci.dataset.pos)
+  neg.words <- c(negWords, uci.dataset.neg)
+  # compare word vectors from sentence against positve and negative word vectos
+  pos.matches <- match(word.list, pos.words)
+  neg.matches <- match(word.list, neg.words)
+
+  # create word vector that denoted matches to postive and negative word vectors
+ pos.matches <-is.na(pos.matches)
+ neg.matches <- !is.na(neg.matches)
+  
+  score <- sum(pos.matches) - sum(neg.matches)
+  return(round(score, digits = 3))
 }
 
 calculateNumPosWords <- function(posWords)
 {
-  pos.words = c(hu.liu.pos, 'upgrade')
-  return(round(result, digits = 2))
+  posWords <- cleanse_tokenize(posWords)
+  pos.words <- c(posWords, uci.dataset.pos)
+  result <- length(pos.words)
+  return(result)
 }
 
 calculateNumNegWords <- function(negWords)
 {
-  pos.words = c(hu.liu.pos, 'upgrade')
-  return(round(result, digits = 2))
+  negWords <- cleanse_tokenize(negWords)
+  neg.words <- c(posWords, uci.dataset.neg)
+  result <- length(neg.words)
+  return(result)
 }
 
 
