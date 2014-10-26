@@ -8,6 +8,11 @@ Assignment Submission Files
 - [server.R](https://github.com/linearregression/dataproducts-slidify/blob/master/server.R)
 - [README.md](https://github.com/linearregression/dataproducts-slidify/blob/master/README.md)
 
+About the App
+This application is for simple sentiment analysis for text. User enter their text for analysis. A positive number is a postive sentiment. Number magnitude denoted the degree 
+of sentiment
+
+
 Instructions
 
 * Clone the code using 'git clone https://github.com/linearregression/dataproducts.git YOURDIRECTORY'

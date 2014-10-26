@@ -11,8 +11,8 @@ require(tm.plugin.sentiment) || install.packages("tm.plugin.sentiment", repos="h
 
 shinyServer(
   function(input, output){
-    uci.dataset.pos = scan('data/positive-words.txt', what='character', comment.char=';')
-    uci.dataset.neg = scan('data/negative-words.txt', what='character', comment.char=';')
+    uci.dataset.pos <- scan('data/positive-words.txt', what='character', comment.char=';')
+    uci.dataset.neg <- scan('data/negative-words.txt', what='character', comment.char=';')
     output$sentiment <- renderText(
              { calculateSentiment(input$sampleText,
                                   input$posWords,
@@ -64,8 +64,8 @@ calculateSentiment <- function (sampleText, posWords, negWords,
   neg.matches <- match(word.list, neg.words)
 
   # create word vector that denoted matches to postive and negative word vectors
- pos.matches <-is.na(pos.matches)
- neg.matches <- !is.na(neg.matches)
+  pos.matches <-is.na(pos.matches)
+  neg.matches <- !is.na(neg.matches)
   
   score <- sum(pos.matches) - sum(neg.matches)
   return(round(score, digits = 3))
