@@ -51,14 +51,12 @@ calculateSentiment <- function (sampleText, posWords, negWords,
 {
   word.list <- cleanse_tokenize(sampleText)
  
-  if(length(word.list) > 1) {
+  if(length(word.list) > 0) {
      posWords <- cleanse_tokenize(posWords)
      negWords <- cleanse_tokenize(negWords) 
      pos.words <- ifelse(length(posWords), unique(c(posWords, posWordsDb)), posWordsDb) 
      neg.words <- ifelse(length(negWords), unique(c(negWords, negWordsDb)), negWordsDb)
-
      # compare word vectors from sentence against positve and negative word vectos
-
      pos.matches <- match(word.list, pos.words)
      neg.matches <- match(word.list, neg.words)
 print(pos.matches)
@@ -67,8 +65,8 @@ print(neg.matches)
      pos_matches <- is.na(pos.matches)
      neg_matches <- !is.na(neg.matches)
 print('***')
-print(pos.matches)
-print(neg.matches)
+print(pos_matches)
+print(neg_matches)
 print('***')
      score <- sum(pos_matches) - sum(neg_matches)
      return(round(score, digits = 3))
