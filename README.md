@@ -31,6 +31,11 @@ Dependencies
 
 * . Shiny library
 
+Example Usage
+Enter text in sample text box
+I love you wewa
+Enter 'wewa' in New Positive Words
+
 More Information
 
 The application is deployed on ShinyApps.io at [https://raymondwstang.shinyapps.io/assignment/](https://raymondwstang.shinyapps.io/assignment/).

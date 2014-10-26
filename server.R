@@ -50,21 +50,21 @@ calculateSentiment <- function (sampleText, posWords, negWords,
                                 posWordsDb, negWordsDb ) 
 {
   word.list <- cleanse_tokenize(sampleText)
-  posWords <- cleanse_tokenize(posWords)
-  negWords <- cleanse_tokenize(negWords)
-  
-  pos.words <- c(posWords, posWordsDb)
-  neg.words <- c(negWords, negWordsDb)
-  # compare word vectors from sentence against positve and negative word vectos
-  pos.matches <- match(word.list, pos.words)
-  neg.matches <- match(word.list, neg.words)
-
-  # create word vector that denoted matches to postive and negative word vectors
-  pos.matches <-is.na(pos.matches)
-  neg.matches <- !is.na(neg.matches)
-  
-  score <- sum(pos.matches) - sum(neg.matches)
-  return(round(score, digits = 3))
+  if(length(word.list) < 1) {
+     posWords <- cleanse_tokenize(posWords)
+     negWords <- cleanse_tokenize(negWords) 
+     pos.words <- c(posWords, posWordsDb)
+     neg.words <- c(negWords, negWordsDb)
+     # compare word vectors from sentence against positve and negative word vectos
+     pos.matches <- match(word.list, pos.words)
+     neg.matches <- match(word.list, neg.words)
+     # create word vector that denoted matches to postive and negative word vectors
+     pos.matches <-is.na(pos.matches)
+     neg.matches <- !is.na(neg.matches)
+     score <- sum(pos.matches) - sum(neg.matches)
+     return(round(score, digits = 3))
+  }
+  return(0)
 }
 
 calculateNumPosWords <- function(posWords, posWordsDb)
