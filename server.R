@@ -1,6 +1,6 @@
 library(shiny)
 require(plyr) || install.packages('plyr') 
-require(stringr) || || install.packages('stringr')
+require(stringr) || install.packages('stringr')
 require(wordcloud) || install.packages('wordcloud')
 require(ggplot2) || install.packages('ggplot2')
 require(tm) || install.packages('tm')
@@ -16,16 +16,18 @@ shinyServer(
     output$sentiment <- renderText(
              { calculateSentiment(input$sampleText,
                                   input$posWords,
-                                  input$negWords
+                                  input$negWords,
+                                  uci.dataset.pos,
+                                  uci.dataset.neg
              ) })
 
     output$numberOfPositiveWords <- renderText({ 
-             calculateNumPosWords(input$posWords) 
+             calculateNumPosWords(input$posWords, uci.dataset.pos) 
              })
 
 
     output$numberOfNegativeWords <- renderText({ 
-             calculateNumNegWords(input$negWords) 
+             calculateNumNegWords(input$negWords, uci.dataset.neg) 
              })
 
 
@@ -48,14 +50,15 @@ cleanse_tokenize <-function(sentence) {
   return(words)
 }
 
-calculateSentiment <- function (sampleText, posWords, negWords) 
+calculateSentiment <- function (sampleText, posWords, negWords, 
+                                posWordsDb, negWordsDb ) 
 {
   word.list <- cleanse_tokenize(sampleText)
   posWords <- cleanse_tokenize(posWords)
   negWords <- cleanse_tokenize(negWords)
   
-  pos.words <- c(posWords, uci.dataset.pos)
-  neg.words <- c(negWords, uci.dataset.neg)
+  pos.words <- c(posWords, posWordsDb)
+  neg.words <- c(negWords, negWordsDb)
   # compare word vectors from sentence against positve and negative word vectos
   pos.matches <- match(word.list, pos.words)
   neg.matches <- match(word.list, neg.words)
@@ -68,18 +71,18 @@ calculateSentiment <- function (sampleText, posWords, negWords)
   return(round(score, digits = 3))
 }
 
-calculateNumPosWords <- function(posWords)
+calculateNumPosWords <- function(posWords, posWordsDb)
 {
   posWords <- cleanse_tokenize(posWords)
-  pos.words <- c(posWords, uci.dataset.pos)
+  pos.words <- c(posWords, posWordsDb)
   result <- length(pos.words)
   return(result)
 }
 
-calculateNumNegWords <- function(negWords)
+calculateNumNegWords <- function(negWords, negWordsDb )
 {
   negWords <- cleanse_tokenize(negWords)
-  neg.words <- c(posWords, uci.dataset.neg)
+  neg.words <- c(negWords, negWordsDb )
   result <- length(neg.words)
   return(result)
 }
