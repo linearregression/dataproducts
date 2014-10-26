@@ -3,11 +3,11 @@ shinyUI(pageWithSidebar(
   headerPanel("Text Sentiment Analysis"),
   sidebarPanel(
     h4('Simple Text Sentiment by Scoring against Words  '),
-    textInput('Sample text', 'Text Input', value=''),
+    textInput('sampleText', 'Sample sentence', value=''),
     h4('New Positive words'),
-    textInput('New Positive Words', 'Text Input', value=''),
+    textInput('posWords', 'New positive sentiment word', value=''),
     h4('New Negative words'),
-    textInput('New Positive Words', 'Text Input', value='')
+    textInput('negWords', 'New negative sentiment word', value='')
 
   ),
   mainPanel(

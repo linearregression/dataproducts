@@ -9,15 +9,19 @@ require(tm.plugin.sentiment) || install.packages("tm.plugin.sentiment", repos="h
 
 shinyServer(
   function(input, output){
-    output$rentalYield <- renderText({ calculateSentiment(input$weeklyRent, input$price) }),
+    output$sentiment <- renderText(
+             { calculateSentiment(input$sampleText,
+                                  input$posWords,
+                                  input$negWords
+             ) })
 
     output$numberOfPositiveWords <- renderText({ 
-             calculateNumPosWords(input$weeklyRent, input$price) 
-             }),
+             calculateNumPosWords(input$posWords) 
+             })
 
 
     output$numberOfNegativeWords <- renderText({ 
-             calculateNumNegWords(input$weeklyRent, input$price) 
+             calculateNumNegWords(input$negWords) 
              })
 
 
@@ -26,21 +30,22 @@ shinyServer(
   }
 )
 
-calculateSentiment <- function (weeklyRent, propertyPrice) 
+calculateSentiment <- function (sampleText, posWords, negWords) 
 {
   result <- weeklyRent * 52 / propertyPrice * 100
   return(round(result, digits = 2))
 }
 
-calculateNumPosWords <- function(weeklyRent, strata, council, water, managementFees, weeklyRepayments)
+calculateNumPosWords <- function(posWords)
 {
   pos.words = c(hu.liu.pos, 'upgrade')
   return(round(result, digits = 2))
 }
 
-calculateNumNegWords <- function(weeklyRent, strata, council, water, managementFees, weeklyRepayments)
+calculateNumNegWords <- function(negWords)
 {
-  neg.words = c(hu.liu.pos, 'upgrade')
+  pos.words = c(hu.liu.pos, 'upgrade')
   return(round(result, digits = 2))
 }
+
 
