@@ -50,11 +50,18 @@ calculateSentiment <- function (sampleText, posWords, negWords,
                                 posWordsDb, negWordsDb ) 
 {
   word.list <- cleanse_tokenize(sampleText)
-  if(length(word.list) < 1) {
+  print(word.list)
+  print(length(word.list))
+
+  if(length(word.list) > 1) {
      posWords <- cleanse_tokenize(posWords)
      negWords <- cleanse_tokenize(negWords) 
-     pos.words <- c(posWords, posWordsDb)
-     neg.words <- c(negWords, negWordsDb)
+     print('wewewa')
+     print(posWords)
+     print(negWords)
+     pos.words <- unique(c(posWords, posWordsDb))
+     neg.words <- unique(c(negWords, negWordsDb))
+
      # compare word vectors from sentence against positve and negative word vectos
      pos.matches <- match(word.list, pos.words)
      neg.matches <- match(word.list, neg.words)

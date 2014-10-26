@@ -1,6 +1,6 @@
 library(shiny)
-shinyUI(pageWithSidebar(
-  headerPanel("Text Sentiment Analysis. Sign is denotes sentiment. Number valus is sentiment magnitude"),
+shinyUI(fluidPage(
+  titlePanel("Text Sentiment Analysis. Sign is denotes sentiment. Number valus is sentiment magnitude"),
   sidebarPanel(
     h4('Simple Text Sentiment by Scoring against Words  '),
     textInput('sampleText', 'Sample sentence', value=''),
