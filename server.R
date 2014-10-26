@@ -29,10 +29,6 @@ shinyServer(
     output$numberOfNegativeWords <- renderText({ 
              calculateNumNegWords(input$negWords, uci.dataset.neg) 
              })
-
-
-
-
   }
 )
 
