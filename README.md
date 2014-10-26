@@ -38,4 +38,4 @@ Enter 'wewa' in New Positive Words
 
 More Information
 
-The application is deployed on ShinyApps.io at [https://raymondwstang.shinyapps.io/assignment/](https://raymondwstang.shinyapps.io/assignment/).
+The application is deployed on ShinyApps.io at [https://linearregression.shinyapps.io/dataproducts/](https://linearregression.shinyapps.io/dataproducts/).

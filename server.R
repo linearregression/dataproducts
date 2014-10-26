@@ -1,11 +1,11 @@
 library(shiny)
 require(plyr) || install.packages('plyr') 
 require(stringr) || install.packages('stringr')
-require(wordcloud) || install.packages('wordcloud')
+#require(wordcloud) || install.packages('wordcloud')
 require(ggplot2) || install.packages('ggplot2')
-require(tm) || install.packages('tm')
-require(tm.plugin.webmining) || install.packages('tm.plugin.webmining')
-require(tm.plugin.sentiment) || install.packages("tm.plugin.sentiment", repos="http://R-Forge.R-project.org") 
+#require(tm) || install.packages('tm')
+#require(tm.plugin.webmining) || install.packages('tm.plugin.webmining')
+#require(tm.plugin.sentiment) || install.packages("tm.plugin.sentiment", repos="http://R-Forge.R-project.org") 
 
 
 
@@ -59,8 +59,7 @@ calculateSentiment <- function (sampleText, posWords, negWords,
      # compare word vectors from sentence against positve and negative word vectos
      pos.matches <- match(word.list, pos.words)
      neg.matches <- match(word.list, neg.words)
-print(pos.matches)
-print(neg.matches)
+
      # create word vector that denoted matches to postive and negative word vectors
      pos_matches <- !is.na(pos.matches)
      neg_matches <- !is.na(neg.matches)
